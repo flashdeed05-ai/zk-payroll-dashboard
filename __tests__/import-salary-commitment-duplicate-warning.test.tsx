@@ -6,6 +6,7 @@ import {
   type DuplicateCommitmentResolution,
 } from "@/components/features/employees/ImportSalaryCommitmentDuplicateWarning";
 import { findDuplicateSalaryCommitments } from "@/src/payroll/importSalaryCommitmentDuplicates";
+import type { SalaryCommitmentDuplicateGroup } from "@/src/payroll/importSalaryCommitmentDuplicates";
 
 vi.mock("sonner", () => ({
   toast: {
@@ -71,7 +72,12 @@ describe("ImportSalaryCommitmentDuplicateWarning component", () => {
   });
 
   it("reports the chosen keeper row to the caller", () => {
-    const onResolve = vi.fn<void, [unknown, DuplicateCommitmentResolution]>();
+    const onResolve = vi.fn<
+      (
+        group: SalaryCommitmentDuplicateGroup,
+        resolution: DuplicateCommitmentResolution,
+      ) => void
+    >();
     render(
       <ImportSalaryCommitmentDuplicateWarning
         groups={groups}
@@ -86,7 +92,12 @@ describe("ImportSalaryCommitmentDuplicateWarning component", () => {
   });
 
   it("allows the operator to exclude every row of a group", () => {
-    const onResolve = vi.fn<void, [unknown, DuplicateCommitmentResolution]>();
+    const onResolve = vi.fn<
+      (
+        group: SalaryCommitmentDuplicateGroup,
+        resolution: DuplicateCommitmentResolution,
+      ) => void
+    >();
     render(
       <ImportSalaryCommitmentDuplicateWarning
         groups={groups}
